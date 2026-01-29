@@ -29,7 +29,7 @@ Users can enter a message through a simple web interface and instantly receive a
 ---
 
 ## 🛠️ Installation & Setup
-
-1. Clone the repository:
-```bash
+1. cd spam-detection-ai
+2. pip install -r requirements.txt
+3. python app.py
 git clone https://github.com/Mohamedkh199/spam-detection-ai.git
