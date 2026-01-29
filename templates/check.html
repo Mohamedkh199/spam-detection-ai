@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spam Detection System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+    header {
+      background: #001f3f;
+      color: #ffffff;
+      padding: 25px;
+      text-align: center;
+      border-bottom: 4px solid #0d47a1;
+    }
+    header h1 { margin: 0; font-size: 30px; }
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .buttons { text-align: center; margin-bottom: 20px; }
+    .button {
+      display: inline-block; margin: 5px; padding: 12px 18px;
+      background: #0d47a1; color: #fff; text-decoration: none;
+      border-radius: 8px; font-weight: bold;
+    }
+    .button:hover { background: #1565c0; }
+    form { text-align: center; margin-top: 20px; }
+    input[type="text"] {
+      width: 80%; padding: 12px; border: 2px solid #0d47a1;
+      border-radius: 8px; font-size: 16px; background: #f9f9f9;
+    }
+    button {
+      margin-top: 15px; padding: 12px 20px; background: #0d47a1;
+      color: #fff; border: none; border-radius: 8px;
+      font-size: 16px; cursor: pointer; font-weight: bold;
+    }
+    button:hover { background: #1565c0; }
+    .result {
+      margin-top: 25px; font-size: 20px; font-weight: bold;
+      text-align: center; padding: 14px; border-radius: 10px;
+    }
+    .spam { background: #ffe0e0; color: #d32f2f; border: 1px solid #f5c6cb; }
+    .notspam { background: #e0ffe0; color: #2e7d32; border: 1px solid #c3e6cb; }
+    .neutral { background: #e3f2fd; color: #0d47a1; border: 1px solid #90caf9; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📧 Spam Detection System</h1>
+  </header>
+
+  <div class="container">
+    <div class="buttons">
+      <a href="/history" class="button">📜 History</a>
+      <a href="/model" class="button">⚙️ Model Info</a>
+      <a href="/samples" class="button">📨 Sample Messages</a>
+    </div>
+
+    <form method="POST">
+      <input type="text" name="message" value="{{ message if message else '' }}" placeholder="Enter message here..." />
+      <br>
+      <!-- الزر لازم يرسل action=check -->
+      <button type="submit" name="action" value="check">Check Message</button>
+    </form>
+
+    {% if prediction %}
+      <div class="result 
+        {% if 'Spam ❌' in prediction %}spam{% elif 'Not Spam ✅' in prediction %}notspam{% elif 'Neutral 🔵' in prediction %}neutral{% endif %}">
+        {{ prediction }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

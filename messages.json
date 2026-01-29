@@ -1,0 +1,26 @@
+{
+  "spam": [
+    "You won a free prize!",
+    "Claim your free vacation now!",
+    "Congratulations! You have won a brand new iPhone 15. Click here to claim your prize: http://fake-link.com",
+    "Claim your free vacation to Dubai now! Limited time offer, register at http://scam-travel.com",
+    "Exclusive offer: Invest $100 and receive $1000 guaranteed return",
+    "Congratulations! You have won a free lottery. Click now!!",
+    "Congratulations you won $1000",
+    "Call now urgent offer",
+    "Free prize 1000$ click here ",
+    "You have been SELECTED as the GRAND WINNER of $10,000 CASH!!!"
+  ],
+  "not_spam": [
+    "Hello, how are you?",
+    "Meeting tomorrow at 10 AM",
+    "Don't forget to bring your notebook",
+    "Lunch at 1 PM today?",
+    "Can you send me the report?",
+    "Happy birthday, enjoy your day!",
+    "Let's catch up this weekend",
+    "Reminder: doctor's appointment at 4 PM",
+    "Your order has been shipped",
+    "Family gathering on Friday evening"
+  ]
+}

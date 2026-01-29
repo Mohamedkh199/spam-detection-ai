@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Messages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 24px;
+      background: #f9f9f9;
+    }
+    h2 {
+      color: #1976d2;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .column {
+      flex: 1;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .spam-col {
+      background: #ffe0e0; /* أحمر فاتح */
+    }
+    .notspam-col {
+      background: #e0ffe0; /* أخضر فاتح */
+    }
+    h3 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 8px 0;
+    }
+    a.msg-link {
+      display: inline-block;
+      padding: 8px 12px;
+      background: #eee;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #333;
+      transition: background 0.2s;
+    }
+    a.msg-link:hover {
+      background: #d0e4f7;
+    }
+    .icon {
+      margin-right: 6px;
+      font-weight: bold;
+    }
+    .spam-icon { color: red; }
+    .notspam-icon { color: green; }
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 18px;
+      background: #1976d2;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .back-btn:hover { background: #125aa2; }
+    .footer {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>Sample Messages</h2>
+
+  <div class="row">
+    <!-- Spam Column -->
+    <div class="column spam-col">
+      <h3>Spam</h3>
+      <ul>
+        {% for msg in spam %}
+          <li>
+            <span class="icon spam-icon">❌</span>
+            <a class="msg-link" href="/?message={{ msg }}">{{ msg }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Not Spam Column -->
+    <div class="column notspam-col">
+      <h3>Not Spam</h3>
+      <ul>
+        {% for msg in not_spam %}
+          <li>
+            <span class="icon notspam-icon">✅</span>
+            <a class="msg-link" href="/?message={{ msg }}">{{ msg }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a class="back-btn" href="/">⬅ Back to Check</a>
+  </div>
+</body>
+</html>

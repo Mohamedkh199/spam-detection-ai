@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>History</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; background: #f9f9f9; }
+    h2 { color: #0d47a1; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background-color: #0d47a1; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    .chart-container { width: 420px; margin: 28px auto; }
+    .counts { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
+    .badge { background: #eef3ff; color: #0d47a1; border: 1px solid #cbd4ff; padding: 6px 10px; border-radius: 14px; font-size: 14px; }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 14px;
+      background: #0d47a1;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-btn:hover { background: #1565c0; }
+  </style>
+</head>
+<body>
+  <h2>History of Checked Messages</h2>
+
+  <table>
+    <tr>
+      <th>Message</th>
+      <th>Prediction</th>
+      <th>Time</th>
+    </tr>
+    {% for item in history %}
+    <tr>
+      <td>{{ item.message }}</td>
+      <td>{{ item.prediction }}</td>
+      <td>{{ item.time }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <!-- تمرير القيم كـ data attributes -->
+  <div id="chart-data"
+       data-spam="{{ spam_count }}"
+       data-notspam="{{ notspam_count }}"
+       data-neutral="{{ neutral_count }}">
+  </div>
+
+  <!-- عدادات -->
+  <div class="counts">
+    {% if spam_count > 0 %}<span class="badge">Spam: {{ spam_count }}</span>{% endif %}
+    {% if notspam_count > 0 %}<span class="badge">Not Spam: {{ notspam_count }}</span>{% endif %}
+    {% if neutral_count > 0 %}<span class="badge">Neutral: {{ neutral_count }}</span>{% endif %}
+  </div>
+
+  <!-- Pie Chart -->
+  <div class="chart-container">
+    <canvas id="historyChart"></canvas>
+  </div>
+
+  <!-- زر Reset -->
+  <div style="text-align:center; margin-top:20px;">
+    <a class="back-btn" href="/reset">🔄 Reset History</a>
+    <a class="back-btn" href="/">⬅ Back to Check</a>
+  </div>
+
+  <script>
+    const chartData = document.getElementById('chart-data');
+    const spam_count = parseInt(chartData.dataset.spam, 10) || 0;
+    const notspam_count = parseInt(chartData.dataset.notspam, 10) || 0;
+    const neutral_count = parseInt(chartData.dataset.neutral, 10) || 0;
+
+    const data = [];
+    const labels = [];
+    const colors = [];
+
+    if (spam_count > 0) {
+      data.push(spam_count);
+      labels.push("Spam ❌");
+      colors.push("#d32f2f");
+    }
+    if (notspam_count > 0) {
+      data.push(notspam_count);
+      labels.push("Not Spam ✅");
+      colors.push("#2e7d32");
+    }
+    if (neutral_count > 0) {
+      data.push(neutral_count);
+      labels.push("Neutral 🔵");
+      colors.push("#1565c0");
+    }
+
+    const ctx = document.getElementById('historyChart').getContext('2d');
+
+    // ارسم فقط إذا فيه بيانات
+    if (data.length > 0) {
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: colors
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom' },
+            title: { display: true, text: 'Distribution of Checked Messages' }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

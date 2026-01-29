@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .section { display: none; margin-top: 20px; }
+        .section.active { display: block; }
+        .nav-buttons button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            margin-top: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-buttons button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📧 Spam Detection System</h1>
+</header>
+
+<div class="container">
+
+    <!-- أزرار التنقل -->
+    <div class="nav-buttons">
+        <form method="POST" style="display:inline;">
+            <button name="action" value="check">Check Message</button>
+        </form>
+        <form method="POST" style="display:inline;">
+            <button name="action" value="history">History</button>
+        </form>
+        <form method="POST" style="display:inline;">
+            <button name="action" value="model">Model Info</button>
+        </form>
+    </div>
+
+    <!-- قسم Check Message -->
+    <div class="section {% if section == 'check' %}active{% endif %}" id="check">
+        <h2>Check Message</h2>
+        <form method="POST">
+            <textarea name="message" placeholder="Enter message here..." required></textarea><br>
+            <button type="submit" name="action" value="check">Check Message</button>
+        </form>
+
+        {% if prediction %}
+            <h3>Result:
+                {% if prediction == 'Spam' %}
+                    <span class="spam">🚨 Spam</span>
+                {% else %}
+                    <span class="not-spam">✅ Not Spam</span>
+                {% endif %}
+            </h3>
+        {% endif %}
+    </div>
+
+    <!-- قسم History -->
+    <div class="section {% if section == 'history' %}active{% endif %}" id="history">
+        <h2>Checked Messages History</h2>
+        {% if history %}
+            <table width="100%" cellpadding="10">
+                <tr>
+                    <th>#</th>
+                    <th>Message</th>
+                    <th>Spam Status</th>
+                    <th>Time</th>
+                </tr>
+                {% for msg, res, time in history %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ msg }}</td>
+                    <td class="{% if res == 'Spam' %}spam{% else %}not-spam{% endif %}">
+                        {% if res == 'Spam' %}🚨 Spam{% else %}✅ Not Spam{% endif %}
+                    </td>
+                    <td>{{ time }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No messages checked yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- قسم Model Info -->
+    <div class="section {% if section == 'model' %}active{% endif %}" id="model">
+        <h2>🤖 Model Information</h2>
+        <ul>
+            <li><b>Algorithm:</b> Multinomial Naive Bayes</li>
+            <li><b>Vectorizer:</b> TF-IDF</li>
+            <li><b>Framework:</b> Flask</li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
