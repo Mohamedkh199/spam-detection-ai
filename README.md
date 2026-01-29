@@ -25,11 +25,10 @@ Users can enter a message through a simple web interface and instantly receive a
 - Simple and user-friendly web interface
 - Fast and accurate predictions
 - Trained machine learning model
-
 ---
-
 ## 🛠️ Installation & Setup
 1. cd spam-detection-ai
 2. pip install -r requirements.txt
 3. python app.py
+
 git clone https://github.com/Mohamedkh199/spam-detection-ai.git
