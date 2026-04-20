@@ -158,5 +158,10 @@ def samples():
     except FileNotFoundError:
         return "messages.json file not found. Please make sure it's in the same folder as app.py."
 
+
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+   
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
